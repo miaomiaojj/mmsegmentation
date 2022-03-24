@@ -1,6 +1,14 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import mmcv
 
+def CelebAMaskDataset_classes():
+  return ['background', 'skin', 'nose', 'eye glasses', 'left eye', 'right eye', 'left brow', 'right brow','left ear','right ear ','mouth','upper lip ','lower lip','hair','hat','earring','necklace','neck','cloth']
+
+
+
+def CelebAMaskDataset_palette():
+    return [[0, 0, 0], [204, 0, 0], [76, 153, 0], [204, 204, 0], [51, 51, 255], [204, 0, 204], [0, 255, 255], [255, 204, 204], [102, 51, 0], [255, 0, 0], [102, 204, 0], [255, 255, 0], [0, 0, 153], [0, 0, 204], [255, 51, 153], [0, 204, 204], [0, 51, 0], [255, 153, 51], [0, 204, 0]]
+
 
 def cityscapes_classes():
     """Cityscapes class names for external use."""
@@ -10,6 +18,7 @@ def cityscapes_classes():
         'person', 'rider', 'car', 'truck', 'bus', 'train', 'motorcycle',
         'bicycle'
     ]
+
 
 
 def ade_classes():
