@@ -44,7 +44,7 @@ model = dict(
     train_cfg=dict(),
     test_cfg=dict(mode='whole'))
 dataset_type = 'CelebAMaskDataset'
-data_root = 'data/CelebAMaskHQ/'
+data_root = '/content/mmsegmentation/CelebAMaskHQ'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 train_pipeline = [
@@ -82,14 +82,14 @@ data = dict(
     workers_per_gpu=4,
     train=dict(
         type='CelebAMaskDataset',
-        data_root='data/CelebAMaskHQ/',
+        data_root='/content/mmsegmentation/CelebAMaskHQ',
         img_dir='mini_train_image',
         ann_dir='mini_train_mask',
         split='mini_train.txt',
         pipeline=[
             dict(type='LoadImageFromFile'),
             dict(type='LoadAnnotations'),
-            #dict(type='RandomFlip', prob=0),
+            dict(type='RandomFlip', prob=0.5),
             dict(
                 type='Normalize',
                 mean=[123.675, 116.28, 103.53],
@@ -100,7 +100,7 @@ data = dict(
         ]),
     val=dict(
         type='CelebAMaskDataset',
-        data_root='data/CelebAMaskHQ/',
+        data_root='/content/mmsegmentation/CelebAMaskHQ',
         img_dir='mini_val_image',
         ann_dir='mini_val_mask',
         split='mini_val.txt',
@@ -112,7 +112,7 @@ data = dict(
                 flip=False,
                 transforms=[
                     dict(type='Resize', keep_ratio=True),
-                    #dict(type='RandomFlip'),
+                    dict(type='RandomFlip'),
                     dict(
                         type='Normalize',
                         mean=[123.675, 116.28, 103.53],
@@ -124,7 +124,7 @@ data = dict(
         ]),
     test=dict(
         type='CelebAMaskDataset',
-        data_root='data/CelebAMaskHQ/',
+        data_root='/content/mmsegmentation/CelebAMaskHQ',
         img_dir='mini_test_image',
         ann_dir='mini_test_mask',
         split='mini_test.txt',
@@ -159,4 +159,4 @@ optimizer_config = dict()
 lr_config = dict(policy='poly', power=0.9, min_lr=0.0001, by_epoch=False)
 runner = dict(type='IterBasedRunner', max_iters=20000)
 checkpoint_config = dict(by_epoch=False, interval=2000)
-evaluation = dict(interval=2000, metric=['mIoU', 'mDice'], pre_eval=True)
+evaluation = dict(interval=2000, metric=['mIoU', 'mDice'], meta=dict(CLASSES= ('background', 'skin', 'nose', 'eye glasses', 'left eye', 'right eye', 'left brow', 'right brow','left ear','right ear ','mouth','upper lip ','lower lip','hair','hat','earring','necklace','neck','cloth'), PALETTE=[[0, 0, 0], [204, 0, 0], [76, 153, 0], [204, 204, 0], [51, 51, 255], [204, 0, 204], [0, 255, 255], [255, 204, 204], [102, 51, 0], [255, 0, 0], [102, 204, 0], [255, 255, 0], [0, 0, 153], [0, 0, 204], [255, 51, 153], [0, 204, 204], [0, 51, 0], [255, 153, 51], [0, 204, 0]]), pre_eval=True)
